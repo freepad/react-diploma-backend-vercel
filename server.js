@@ -49,6 +49,11 @@ app.use(koaBody({
 
 const router = new Router();
 
+router.get('/', (ctx) => {
+    ctx.response.status = 200;
+    ctx.response.body = { hello: 'student' };
+})
+
 router.get('/api/top-sales', async (ctx, next) => {
     return fortune(ctx, items.filter(o => topSaleIds.includes(o.id)).map(itemBasicMapper));
 });
@@ -115,6 +120,6 @@ router.post('/api/order', async (ctx, next) => {
 app.use(router.routes())
 app.use(router.allowedMethods());
 
-const port = process.env.PORT || 7070;
+const port = process.env.PORT || 80;
 const server = http.createServer(app.callback());
 server.listen(port);
